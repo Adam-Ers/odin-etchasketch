@@ -45,6 +45,7 @@ h1 {
     align-items: center;
     justify-content: center;
     width: 200px;
+    gap: 8px;
     /* margin: 1%;
     margin-left: 11.5%; */
     border: none;
@@ -78,7 +79,7 @@ h1 {
     flex: 1;
     flex-basis: 100%;
     background-color: white;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 @media (max-width: 1000px) {

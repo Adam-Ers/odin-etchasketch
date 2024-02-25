@@ -2,6 +2,12 @@ const drawingGrid = document.querySelector("#drawing");
 const resolutionInput = document.querySelector("#resolutionSlider");
 const resolutionText = document.querySelector("#resolutionText");
 
+let mouseDown = false;
+document.body.onmousedown = () => {mouseDown = true};
+document.body.onmouseup = () => {mouseDown = false};
+
+let eraser = false;
+
 function refreshGrid() {
     let resolution = resolutionInput.value;
     drawingGrid.innerHTML = '';
@@ -21,17 +27,39 @@ function refreshGrid() {
             pixel.classList.add("pixel");
             pixel.style.minWidth = `${width}px`;
             pixel.style.minHeight = `${width}px`;
+            pixel.addEventListener('mouseover', onMouseOver);
+            pixel.addEventListener('mousedown', onMouseOver);
             column.appendChild(pixel);
         }
     }
     resolutionText.textContent = `Resolution: ${resolution} x ${resolution}`;
 }
 
-refreshGrid()
+function onMouseOver(element) {
+    if (mouseDown || element.type === 'mousedown') 
+    { 
+        element.target.style.backgroundColor = "black";
+        if (eraser) { element.target.style.backgroundColor = "white"; }
+    }
+}
 
 resolutionInput.addEventListener('input', () => {
     refreshGrid();
 });
 
-window.onload = refreshGrid;
+function eraserToggle(element) {
+    let button = element.target;
+    if (eraser) { button.style.backgroundColor = "white"; }
+    else { button.style.backgroundColor = "pink"; }
+    eraser = !eraser;
+}
+
+function windowLoad()
+{
+    refreshGrid();
+    document.querySelector('#clearButton').addEventListener('click', refreshGrid);
+    document.querySelector('#eraserButton').addEventListener('click', eraserToggle);
+}
+
+window.onload = windowLoad;
 window.onresize = refreshGrid;
