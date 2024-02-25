@@ -11,6 +11,8 @@ let eraser = false;
 let rainbow = false;
 let currentRainbowColor = "rgb(255, 0, 0)";
 
+let targetColor = "rgb(0, 0, 0)";
+
 function generateRainbowColor()
 {
     let r = Math.floor(Math.random() * 256);
@@ -49,7 +51,7 @@ function refreshGrid() {
 function onMouseOver(element) {
     if (mouseDown || element.type === 'mousedown') 
     { 
-        element.target.style.backgroundColor = "black";
+        element.target.style.backgroundColor = targetColor;
         if (eraser) { element.target.style.backgroundColor = "white"; }
         else if (rainbow) {
             element.target.style.backgroundColor = currentRainbowColor;
@@ -80,12 +82,17 @@ function rainbowToggle(element) {
     }
 }
 
+function changeColor(element) {
+    targetColor = element.target.value;
+}
+
 function windowLoad()
 {
     refreshGrid();
     document.querySelector('#clearButton').addEventListener('click', refreshGrid);
     document.querySelector('#eraserButton').addEventListener('click', eraserToggle);
     rainbowButton.addEventListener('click', rainbowToggle);
+    document.querySelector('#colorPicker').addEventListener('change', changeColor);
 }
 
 window.onload = windowLoad;
