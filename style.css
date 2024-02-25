@@ -1,6 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: medium;
+    font-family: Roboto, sans-serif;
+}
+
 body {
     display: flex;
+    flex-direction: column;
     background-color: rgb(90, 103, 116);
     color: aliceblue;
     justify-content: center;
+    align-items: center;
+}
+
+/* div {
+    border: 1px black solid;
+} */
+
+h1 {
+    margin: 16px;
+    font-size: 2em;
+}
+
+#viewport {
+    display: flex;
+    max-width: 90vw;
+    margin: 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border: none;
+    gap: 64px;
+}
+
+#settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 25%;
+    /* margin: 1%;
+    margin-left: 11.5%; */
+    border: none;
+    text-align: center;
+    /* border: solid 1px black; */
+}
+
+#drawing {
+    display: grid;
+    aspect-ratio: 1;
+    width: 700px;
+    align-self: center;
+    border: 1px black solid ;
+}
+
+@media (max-width: 800px) {
+    * {
+        font-size: small;
+    }
+
+    h1 {
+        margin: 8px;
+    }
+
+    #viewport {
+        gap: 32px;
+    }
+
+    #drawing {
+        width: 300px;
+    }
+}
+
+@media (max-width: 650px) {
+    #viewport {
+        flex-direction: column-reverse;
+    }
 }
