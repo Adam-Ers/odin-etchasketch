@@ -9,12 +9,15 @@
 }
 
 body {
-    display: flex;
-    flex-direction: column;
     background-color: rgb(90, 103, 116);
     color: aliceblue;
+    min-width: 300px;
+}
+
+header {
+    display: flex;
+    align-content: center;
     justify-content: center;
-    align-items: center;
 }
 
 /* div {
@@ -28,9 +31,8 @@ h1 {
 
 #viewport {
     display: flex;
-    max-width: 90vw;
+    max-width: 950px;
     margin: 0 auto;
-    flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     border: none;
@@ -42,7 +44,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 25%;
+    max-width: 200px;
     /* margin: 1%;
     margin-left: 11.5%; */
     border: none;
@@ -53,9 +55,14 @@ h1 {
 #drawing {
     display: grid;
     aspect-ratio: 1;
-    width: 700px;
-    align-self: center;
+    width: 500px;
     border: 1px black solid ;
+}
+
+@media (max-width: 1000px) {
+    #viewport {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 800px) {
