@@ -1,0 +1,6 @@
+body {
+    display: flex;
+    background-color: rgb(90, 103, 116);
+    color: aliceblue;
+    justify-content: center;
+}
