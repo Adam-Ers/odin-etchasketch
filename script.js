@@ -1,12 +1,23 @@
 const drawingGrid = document.querySelector("#drawing");
 const resolutionInput = document.querySelector("#resolutionSlider");
 const resolutionText = document.querySelector("#resolutionText");
+const rainbowButton = document.querySelector("#rainbowButton");
 
 let mouseDown = false;
 document.body.onmousedown = () => {mouseDown = true};
 document.body.onmouseup = () => {mouseDown = false};
 
 let eraser = false;
+let rainbow = false;
+let currentRainbowColor = "rgb(255, 0, 0)";
+
+function generateRainbowColor()
+{
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    currentRainbowColor = `rgb(${r}, ${g}, ${b})`;
+}
 
 function refreshGrid() {
     let resolution = resolutionInput.value;
@@ -40,6 +51,11 @@ function onMouseOver(element) {
     { 
         element.target.style.backgroundColor = "black";
         if (eraser) { element.target.style.backgroundColor = "white"; }
+        else if (rainbow) {
+            element.target.style.backgroundColor = currentRainbowColor;
+            generateRainbowColor();
+            rainbowButton.style.backgroundColor = currentRainbowColor;
+        }
     }
 }
 
@@ -54,11 +70,22 @@ function eraserToggle(element) {
     eraser = !eraser;
 }
 
+function rainbowToggle(element) {
+    let button = element.target;
+    rainbow = !rainbow;
+    if (!rainbow) { button.style.backgroundColor = "white"; }
+    else { 
+        generateRainbowColor();
+        button.style.backgroundColor = currentRainbowColor; 
+    }
+}
+
 function windowLoad()
 {
     refreshGrid();
     document.querySelector('#clearButton').addEventListener('click', refreshGrid);
     document.querySelector('#eraserButton').addEventListener('click', eraserToggle);
+    rainbowButton.addEventListener('click', rainbowToggle);
 }
 
 window.onload = windowLoad;
