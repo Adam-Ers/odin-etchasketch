@@ -33,4 +33,5 @@ resolutionInput.addEventListener('input', () => {
     refreshGrid();
 });
 
+window.onload = refreshGrid;
 window.onresize = refreshGrid;
