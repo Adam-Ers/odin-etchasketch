@@ -14,8 +14,20 @@ const resizeObserver = new ResizeObserver(entries => {
 let eraser = false;
 let rainbow = false;
 let currentRainbowColor = "rgb(255, 0, 0)";
+let grid = false;
 
-let targetColor = "rgb(0, 0, 0)";
+Coloris({
+    themeMode: 'dark',
+    alpha: false,
+    swatches: [
+        'red',
+        'orange',
+        'yellow',
+        'green',
+        'blue',
+        'indigo',
+    ]
+});
 
 function generateRainbowColor()
 {
@@ -44,6 +56,7 @@ function refreshGrid() {
             pixel.classList.add("pixel");
             pixel.style.minWidth = `${width}px`;
             pixel.style.minHeight = `${width}px`;
+            if (grid) { pixel.style.border = "1px solid darkgray"};
             pixel.addEventListener('mouseover', onMouseOver);
             pixel.addEventListener('mousedown', onMouseOver);
             column.appendChild(pixel);
@@ -64,10 +77,23 @@ function resizeGrid() {
     })
 }
 
+function gridToggle() {
+    grid = !grid;
+    let grid_color = 255 - (50 * grid);
+    document.querySelector('#gridButton').style.backgroundColor = `rgb(${grid_color}, ${grid_color}, ${grid_color})`;
+    let pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        if (grid) { pixel.style.border = '1px solid darkgray';}
+        else { pixel.style.border = 'none';}
+    })
+}
+
 function onMouseOver(element) {
     if (mouseDown || element.type === 'mousedown') 
     { 
+        targetColor = document.querySelector('#colorPicker').value;
         element.target.style.backgroundColor = targetColor;
+        if (element.target.style.backgroundColor === '') { element.target.style.backgroundColor = 'black';}
         if (eraser) { element.target.style.backgroundColor = "white"; }
         else if (rainbow) {
             element.target.style.backgroundColor = currentRainbowColor;
@@ -98,18 +124,13 @@ function rainbowToggle(element) {
     }
 }
 
-function changeColor(element) {
-    targetColor = element.target.value;
-}
-
 function windowLoad()
 {
     refreshGrid();
     document.querySelector('#clearButton').addEventListener('click', refreshGrid);
     document.querySelector('#eraserButton').addEventListener('click', eraserToggle);
+    document.querySelector('#gridButton').addEventListener('click', gridToggle);
     rainbowButton.addEventListener('click', rainbowToggle);
-    document.querySelector('#colorPicker').addEventListener('change', changeColor);
-    document.querySelector('#colorPicker').addEventListener('close', changeColor);
     resizeObserver.observe(drawingGrid);
 }
 

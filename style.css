@@ -29,6 +29,15 @@ h1 {
     font-size: 2em;
 }
 
+#settings > button {
+    border-radius: 8px;
+    padding: 2px;
+}
+
+input {
+    border-radius: 8px;
+}
+
 #viewport {
     display: flex;
     max-width: 950px;
