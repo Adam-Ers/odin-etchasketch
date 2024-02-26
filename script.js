@@ -7,6 +7,10 @@ let mouseDown = false;
 document.body.onmousedown = () => {mouseDown = true};
 document.body.onmouseup = () => {mouseDown = false};
 
+const resizeObserver = new ResizeObserver(entries => {
+    resizeGrid();
+})
+
 let eraser = false;
 let rainbow = false;
 let currentRainbowColor = "rgb(255, 0, 0)";
@@ -46,6 +50,18 @@ function refreshGrid() {
         }
     }
     resolutionText.textContent = `Resolution: ${resolution} x ${resolution}`;
+}
+
+function resizeGrid() {
+    let resolution = resolutionInput.value;
+    let pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        let width = drawingGrid.clientWidth / resolution;
+        pixel.style.minWidth = `${width}px`;
+        pixel.style.minHeight = `${width}px`;
+        pixel.style.maxWidth = `${width}px`;
+        pixel.style.maxHeight = `${width}px`;
+    })
 }
 
 function onMouseOver(element) {
@@ -93,7 +109,8 @@ function windowLoad()
     document.querySelector('#eraserButton').addEventListener('click', eraserToggle);
     rainbowButton.addEventListener('click', rainbowToggle);
     document.querySelector('#colorPicker').addEventListener('change', changeColor);
+    document.querySelector('#colorPicker').addEventListener('close', changeColor);
+    resizeObserver.observe(drawingGrid);
 }
 
 window.onload = windowLoad;
-window.onresize = refreshGrid;
