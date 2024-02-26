@@ -31,10 +31,8 @@ Coloris({
 
 function generateRainbowColor()
 {
-    let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-    currentRainbowColor = `rgb(${r}, ${g}, ${b})`;
+    let h = Math.floor(Math.random() * 360);
+    currentRainbowColor = `hsl(${h}, 100%, 50%)`;
 }
 
 function refreshGrid() {
