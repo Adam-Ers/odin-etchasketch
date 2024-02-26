@@ -126,12 +126,13 @@ function rainbowToggle(element) {
 
 function windowLoad()
 {
-    refreshGrid();
     document.querySelector('#clearButton').addEventListener('click', refreshGrid);
     document.querySelector('#eraserButton').addEventListener('click', eraserToggle);
     document.querySelector('#gridButton').addEventListener('click', gridToggle);
     rainbowButton.addEventListener('click', rainbowToggle);
     resizeObserver.observe(drawingGrid);
+    refreshGrid();
+    setTimeout(refreshGrid, 10);
 }
 
 window.onload = windowLoad;
